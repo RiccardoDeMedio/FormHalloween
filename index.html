@@ -125,8 +125,7 @@
   .js .rivela.in{opacity:1;transform:none}
 
   /* FORM */
-  form{position:relative;z-index:2;margin-top:2.75rem;background:rgba(13,18,99,.72);border:1px solid var(--linea);border-radius:22px;padding:1.75rem 1.4rem;backdrop-filter:blur(2px)}
-  fieldset{border:0;margin:0 0 2.25rem;padding:0}
+  form{position:relative;z-index:2;background:rgba(13,18,99,.66);border:1px solid var(--linea);border-radius:22px;padding:1.75rem 1.4rem;-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}  fieldset{border:0;margin:0 0 2.25rem;padding:0}
   legend{padding:0;margin-bottom:.35rem;display:flex;gap:.7rem;align-items:baseline}
   legend .n{font:400 1.2rem var(--puffy);color:var(--rosa);display:inline-block}
   .rivela.in legend .n{animation:boing .6s cubic-bezier(.3,1.8,.5,1) .25s both}
@@ -212,14 +211,16 @@
   @keyframes pendola{0%,100%{transform:rotate(3deg)}50%{transform:rotate(-3deg)}}
 
   /* zucca appoggiata sulla linea del footer */
-  /* due zucche appoggiate sulla linea del footer: una poco più grande dell'altra */
-  .zucca{position:absolute;right:62px;top:1px;width:46px;transform:translateY(-100%);pointer-events:none}
-  .zucca.grande{right:4px;width:58px}
+  /* due zucche che sbucano da dietro il form: la parte coperta la sfoca il vetro del form */
+  .scena-form{position:relative;margin-top:2.75rem}
+  .scena-form.inviato .zucca{display:none}
+  .zucca{position:absolute;z-index:1;width:46px;pointer-events:none;top:-30px;left:26px}
+  .zucca.grande{width:58px;top:auto;left:auto;bottom:-22px;right:-24px}
   .zucca svg{display:block;width:100%;height:auto;transform-origin:50% 100%;animation:ondeggia 3.5s ease-in-out infinite;filter:drop-shadow(0 4px 6px rgba(8,12,90,.45))}
   .zucca.grande svg{animation-duration:4.2s;animation-delay:-1.3s}
   @keyframes ondeggia{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
 
-  @media (max-width:520px){ .campi{grid-template-columns:1fr} .hero{padding-top:2.5rem} .b3,.b4{display:none} .b1{--w:90px;top:8.5rem;left:-2.2rem} .b2{--w:80px;top:13rem;right:-1.4rem} .ragno{--giu:118px;right:10px} .ragno svg{width:26px} form{padding:1.4rem 1.1rem} }
+  @media (max-width:520px){ .campi{grid-template-columns:1fr} .hero{padding-top:2.5rem} .b3,.b4{display:none} .b1{--w:90px;top:8.5rem;left:-2.2rem} .b2{--w:80px;top:13rem;right:-1.4rem} .ragno{--giu:118px;right:10px} .ragno svg{width:26px} .zucca.grande{right:-14px} form{padding:1.4rem 1.1rem} }
   @media (prefers-reduced-motion:reduce){ *,*::after{animation:none!important;transition:none!important} .js .rivela{opacity:1;transform:none} }
 </style>
 <script>document.documentElement.classList.add("js")</script>
@@ -254,6 +255,9 @@
       <p class="intro">La notte di Halloween. Lascia i tuoi dati e ci vediamo all'ingresso.</p>
     </section>
 
+    <div class="scena-form" id="scena-form">
+      <span class="zucca" aria-hidden="true"><svg viewBox="0 0 64 58"><path d="M31 21c0-6 2-11 6-13l2.5 3c-3 2-4.5 5.5-4.5 10z" fill="#141c8f"/><path d="M37 11c5-3.5 10.5-2.5 12.5 1.5" fill="none" stroke="#141c8f" stroke-width="2" stroke-linecap="round"/><ellipse cx="19" cy="38" rx="14" ry="17" fill="#ee5fbf"/><ellipse cx="45" cy="38" rx="14" ry="17" fill="#ee5fbf"/><ellipse cx="32" cy="38" rx="15" ry="18.5" fill="#ff9bd9"/><ellipse cx="12" cy="32" rx="2.4" ry="5.5" fill="#ffd3f0" opacity=".7"/><path d="M23 34l3.2-5.5 3.2 5.5zM34.6 34l3.2-5.5 3.2 5.5z" fill="#141c8f"/><path d="M22 41q10 9 20 0l-3.3 1.2-1.7 2-2-1.8-2.5 2-2.5-2-2 1.8-1.7-2z" fill="#141c8f"/></svg></span>
+      <span class="zucca grande" aria-hidden="true"><svg viewBox="0 0 64 58"><path d="M31 21c0-6 2-11 6-13l2.5 3c-3 2-4.5 5.5-4.5 10z" fill="#141c8f"/><path d="M37 11c5-3.5 10.5-2.5 12.5 1.5" fill="none" stroke="#141c8f" stroke-width="2" stroke-linecap="round"/><ellipse cx="19" cy="38" rx="14" ry="17" fill="#ee5fbf"/><ellipse cx="45" cy="38" rx="14" ry="17" fill="#ee5fbf"/><ellipse cx="32" cy="38" rx="15" ry="18.5" fill="#ff9bd9"/><ellipse cx="12" cy="32" rx="2.4" ry="5.5" fill="#ffd3f0" opacity=".7"/><path d="M23 34l3.2-5.5 3.2 5.5zM34.6 34l3.2-5.5 3.2 5.5z" fill="#141c8f"/><path d="M22 41q10 9 20 0l-3.3 1.2-1.7 2-2-1.8-2.5 2-2.5-2-2 1.8-1.7-2z" fill="#141c8f"/></svg></span>
     <form id="form" novalidate>
       <fieldset>
         <legend><span class="n">01</span><span class="t">I tuoi dati</span></legend>
@@ -301,6 +305,7 @@
       <button class="invia" type="submit" id="invia">Mettimi in lista</button>
       <p class="errore-generale" id="err-generale" role="alert"></p>
     </form>
+    </div>
 
     <section class="pass" id="pass" aria-live="polite" tabindex="-1">
       <div class="biglietto">
@@ -314,8 +319,6 @@
   </main>
 
   <footer>
-    <span class="zucca" aria-hidden="true"><svg viewBox="0 0 64 58"><path d="M31 21c0-6 2-11 6-13l2.5 3c-3 2-4.5 5.5-4.5 10z" fill="#141c8f"/><path d="M37 11c5-3.5 10.5-2.5 12.5 1.5" fill="none" stroke="#141c8f" stroke-width="2" stroke-linecap="round"/><ellipse cx="19" cy="38" rx="14" ry="17" fill="#ee5fbf"/><ellipse cx="45" cy="38" rx="14" ry="17" fill="#ee5fbf"/><ellipse cx="32" cy="38" rx="15" ry="18.5" fill="#ff9bd9"/><ellipse cx="12" cy="32" rx="2.4" ry="5.5" fill="#ffd3f0" opacity=".7"/><path d="M23 34l3.2-5.5 3.2 5.5zM34.6 34l3.2-5.5 3.2 5.5z" fill="#141c8f"/><path d="M22 41q10 9 20 0l-3.3 1.2-1.7 2-2-1.8-2.5 2-2.5-2-2 1.8-1.7-2z" fill="#141c8f"/></svg></span>
-    <span class="zucca grande" aria-hidden="true"><svg viewBox="0 0 64 58"><path d="M31 21c0-6 2-11 6-13l2.5 3c-3 2-4.5 5.5-4.5 10z" fill="#141c8f"/><path d="M37 11c5-3.5 10.5-2.5 12.5 1.5" fill="none" stroke="#141c8f" stroke-width="2" stroke-linecap="round"/><ellipse cx="19" cy="38" rx="14" ry="17" fill="#ee5fbf"/><ellipse cx="45" cy="38" rx="14" ry="17" fill="#ee5fbf"/><ellipse cx="32" cy="38" rx="15" ry="18.5" fill="#ff9bd9"/><ellipse cx="12" cy="32" rx="2.4" ry="5.5" fill="#ffd3f0" opacity=".7"/><path d="M23 34l3.2-5.5 3.2 5.5zM34.6 34l3.2-5.5 3.2 5.5z" fill="#141c8f"/><path d="M22 41q10 9 20 0l-3.3 1.2-1.7 2-2-1.8-2.5 2-2.5-2-2 1.8-1.7-2z" fill="#141c8f"/></svg></span>
     <span class="testo"><strong>Pubby S.r.l.</strong> · COE SM31894 · <a href="https://www.pubby.it/privacy.html">Privacy</a> · <a href="https://www.pubby.it/note-legali.html">Note legali</a></span>
   </footer>
 </div>
@@ -448,6 +451,7 @@ form.addEventListener("submit", async (ev) => {
 
     dividiLettere($("pass-nome"), `${d.nome} ${d.cognome}`);
     form.hidden = true;
+    $("scena-form").classList.add("inviato");
     const pass = $("pass");
     pass.classList.add("visibile");
     pass.focus();
