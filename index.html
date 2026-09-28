@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Halloween × Pubby — mettiti in lista</title>
-<meta name="description" content="La notte di Halloween. Scegli la tua lista, lascia i tuoi dati e ci vediamo all'ingresso.">
+<meta name="description" content="La notte di Halloween. Lascia i tuoi dati e ci vediamo all'ingresso.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#2a3bd4">
 <meta property="og:title" content="Halloween × Pubby — mettiti in lista">
-<meta property="og:description" content="Scegli la tua lista e ci vediamo all'ingresso.">
+<meta property="og:description" content="Mettiti in lista e ci vediamo all'ingresso.">
 <meta property="og:locale" content="it_IT">
 <meta property="og:site_name" content="Pubby">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -93,19 +93,6 @@
   legend .t{font-family:var(--largo);font-stretch:125%;font-weight:900;font-size:1.35rem;line-height:1.2}
   .aiuto{opacity:.8;margin:0 0 1.1rem}
 
-  .liste{display:grid;gap:.6rem}
-  .lista input{position:absolute;opacity:0;pointer-events:none}
-  .lista label{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:1rem 1.1rem;border:2px solid var(--linea);border-radius:999px;
-    cursor:pointer;font-weight:700;transition:border-color .15s, background-color .15s, color .15s;
-  }
-  .lista label::after{content:"";width:1.1rem;height:1.1rem;border-radius:50%;border:2px solid rgba(255,255,255,.7);flex:none}
-  .lista label:hover{border-color:var(--rosa)}
-  .lista input:checked + label{border-color:var(--rosa);background:var(--rosa);color:var(--blu-scuro)}
-  .lista input:checked + label::after{border-color:var(--blu-scuro);background:var(--blu-scuro);box-shadow:inset 0 0 0 3px var(--rosa)}
-  .lista input:focus-visible + label{outline:3px solid var(--rosa-chiaro);outline-offset:3px}
-  .stato-liste{opacity:.8;font-size:.95rem}
 
   .campi{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
   .campo{display:flex;flex-direction:column;gap:.35rem}
@@ -183,21 +170,12 @@
     <section class="hero">
       <h1><span class="riga">Mettiti</span><span class="riga">in lista</span><span class="riga script">al resto pensiamo noi</span></h1>
       <p class="quando">Sabato 31 ottobre</p>
-      <p class="intro">La notte di Halloween. Scegli la tua lista, lascia i tuoi dati e ci vediamo all'ingresso.</p>
+      <p class="intro">La notte di Halloween. Lascia i tuoi dati e ci vediamo all'ingresso.</p>
     </section>
 
     <form id="form" novalidate>
       <fieldset>
-        <legend><span class="n">01</span><span class="t">La tua lista</span></legend>
-        <p class="aiuto">Con chi entri? Scegline una.</p>
-        <div class="liste" id="liste" role="radiogroup" aria-describedby="err-lista">
-          <p class="stato-liste">Carico le liste…</p>
-        </div>
-        <p class="errore-campo" id="err-lista" role="alert"></p>
-      </fieldset>
-
-      <fieldset>
-        <legend><span class="n">02</span><span class="t">I tuoi dati</span></legend>
+        <legend><span class="n">01</span><span class="t">I tuoi dati</span></legend>
         <p class="aiuto">Quelli veri: all'ingresso cerchiamo il tuo nome.</p>
         <div class="campi">
           <div class="campo">
@@ -239,7 +217,7 @@
 
       <details class="privacy">
         <summary>Come usiamo i tuoi dati</summary>
-        <p>Li tratta Pubby S.r.l. (Via Gioacchino Rossini 10, Dogana, San Marino). Nome, cognome, telefono ed email servono a metterti nella lista che hai scelto e a riconoscerti all'ingresso: per questo li vedono anche gli organizzatori della serata e chi gestisce la tua lista, e li cancelliamo entro 30 giorni dall'evento.</p>
+        <p>Li tratta Pubby S.r.l. (Via Gioacchino Rossini 10, Dogana, San Marino). Nome, cognome, telefono ed email servono a metterti in lista e a riconoscerti all'ingresso: per questo li vedono anche gli organizzatori della serata, e li cancelliamo entro 30 giorni dall'evento.</p>
         <p>Se spunti anche la seconda casella, li teniamo per avvisarti dei prossimi eventi finché non ci dici di smettere, e comunque non oltre 24 mesi. Senza quella casella non ti scriviamo.</p>
         <p>Per qualsiasi richiesta: <a href="mailto:p.arzilli@pubby.sm">p.arzilli@pubby.sm</a>. Tutti i dettagli in <a href="https://www.pubby.it/privacy.html">Privacy e cookie</a>.</p>
       </details>
@@ -252,7 +230,7 @@
       <div class="biglietto">
         <p class="ev">Halloween × Pubby</p>
         <p class="nome" id="pass-nome"></p>
-        <p class="lista-scelta">Sei in lista <strong id="pass-lista"></strong></p>
+        <p class="lista-scelta">Sei in lista</p>
         <div class="strappo"><span>Sabato 31 ottobre</span><span>Ingresso</span></div>
       </div>
       <p class="nota">Fai uno screenshot, non si sa mai.</p>
@@ -267,33 +245,13 @@
 <script>
 /* ---- Configurazione Supabase (progetto "listaHalloween") ----
    La chiave publishable è pensata per stare nel browser: la sicurezza è
-   garantita dalle policy RLS (si può solo leggere le liste attive e inserire
-   prenotazioni, non leggerle). */
+   garantita dalle policy RLS (si possono solo inserire prenotazioni, non leggerle). */
 const SUPABASE_URL = "https://cyqcxyhncffmjflxtxns.supabase.co";
 const SUPABASE_KEY = "sb_publishable_xDzmip85mfzVEekb7mSfKg_ZACJ5dHQ";
 const headers = { apikey: SUPABASE_KEY, "Content-Type": "application/json" };
 
 const $ = (id) => document.getElementById(id);
-const form = $("form"), listeBox = $("liste");
-let listeCaricate = [];
-
-async function caricaListe(){
-  try{
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/liste?select=slug,nome&order=ordine.asc`, { headers });
-    if(!r.ok) throw new Error(r.status);
-    listeCaricate = await r.json();
-    if(!listeCaricate.length){ listeBox.innerHTML = '<p class="stato-liste">Le liste non sono ancora aperte. Riprova più tardi.</p>'; return; }
-    listeBox.innerHTML = listeCaricate.map((l,i)=>`
-      <div class="lista">
-        <input type="radio" name="lista" id="lista-${i}" value="${l.slug}">
-        <label for="lista-${i}">${escapeHtml(l.nome)}</label>
-      </div>`).join("");
-  }catch(e){
-    listeBox.innerHTML = '<p class="stato-liste">Non riesco a caricare le liste. Controlla la connessione e ricarica la pagina.</p>';
-  }
-}
-
-function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+const form = $("form");
 
 function segna(id, msg){
   const input = $(id), err = $("err-"+id);
@@ -304,7 +262,6 @@ function segna(id, msg){
 
 function valida(d){
   let ok = true;
-  ok = segna("lista", d.lista ? "" : "Scegli con quale lista entri.") && ok;
   ok = segna("nome", d.nome ? "" : "Scrivi il tuo nome.") && ok;
   ok = segna("cognome", d.cognome ? "" : "Scrivi il tuo cognome.") && ok;
   ok = segna("telefono", /^\+?[0-9 ]{6,20}$/.test(d.telefono) ? "" : "Scrivi un numero di telefono valido, solo cifre e spazi.") && ok;
@@ -318,9 +275,7 @@ form.addEventListener("submit", async (ev) => {
   $("err-generale").textContent = "";
   if($("sito").value) return; // bot
 
-  const scelta = form.querySelector('input[name="lista"]:checked');
   const d = {
-    lista: scelta ? scelta.value : "",
     nome: $("nome").value.trim(),
     cognome: $("cognome").value.trim(),
     telefono: $("telefono").value.trim().replace(/\s+/g," "),
@@ -329,7 +284,7 @@ form.addEventListener("submit", async (ev) => {
     consenso_marketing: $("marketing").checked
   };
   if(!valida(d)){
-    const primo = form.querySelector('[aria-invalid="true"]') || (!d.lista && form.querySelector('input[name="lista"]'));
+    const primo = form.querySelector('[aria-invalid="true"]');
     if(primo) primo.focus();
     return;
   }
@@ -343,15 +298,13 @@ form.addEventListener("submit", async (ev) => {
       body: JSON.stringify(d)
     });
     if(r.status === 409){
-      segna("email", "Questa email è già in lista. Se vuoi cambiare lista scrivi a p.arzilli@pubby.sm.");
+      segna("email", "Questa email è già in lista. Se devi cambiare qualcosa scrivi a p.arzilli@pubby.sm.");
       $("email").focus();
       return;
     }
     if(!r.ok) throw new Error(await r.text());
 
-    const nomeLista = (listeCaricate.find(l => l.slug === d.lista) || {}).nome || d.lista;
     $("pass-nome").textContent = `${d.nome} ${d.cognome}`;
-    $("pass-lista").textContent = nomeLista;
     form.hidden = true;
     const pass = $("pass");
     pass.classList.add("visibile");
@@ -364,8 +317,6 @@ form.addEventListener("submit", async (ev) => {
     btn.disabled = false; btn.textContent = "Mettimi in lista";
   }
 });
-
-caricaListe();
 </script>
 </body>
 </html>
