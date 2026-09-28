@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Halloween × Pubby — mettiti in lista</title>
+<meta name="description" content="La notte di Halloween. Scegli la tua lista, lascia i tuoi dati e ci vediamo all'ingresso.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#2a3bd4">
+<meta property="og:title" content="Halloween × Pubby — mettiti in lista">
+<meta property="og:description" content="Scegli la tua lista e ci vediamo all'ingresso.">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="Pubby">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Bagel+Fat+One&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blu:#2a3bd4;        /* pelle blu elettrico */
+    --blu-scuro:#141c8f;  /* ombre della pelle */
+    --blu-notte:#0d1263;  /* superfici del form */
+    --rosa:#ff9bd9;       /* lettere "puffy" */
+    --rosa-caldo:#ee5fbf; /* bordi, spessore 3D */
+    --rosa-chiaro:#ffd3f0;
+    --bianco:#ffffff;
+    --errore:#ffe066;
+    --linea:rgba(255,255,255,.22);
+    --puffy:"Bagel Fat One", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+    --largo:"Archivo", "Arial Black", system-ui, sans-serif;
+    --body:"Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;min-height:100vh;overflow-x:hidden;
+    color:var(--bianco);font:400 1.0625rem/1.55 var(--body);font-stretch:100%;
+    padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+    background-color:var(--blu);
+    /* pelle martellata: celle a rilievo + grana + luce */
+    background-image:
+      radial-gradient(70rem 50rem at 50% 20%, rgba(90,110,255,.35), transparent 65%),
+      radial-gradient(ellipse 46% 42% at 45% 40%, rgba(170,185,255,.34) 0 30%, rgba(42,59,212,0) 62%, rgba(9,14,100,.6) 92%),
+      radial-gradient(ellipse 44% 46% at 55% 45%, rgba(150,165,255,.22) 0 28%, rgba(42,59,212,0) 60%, rgba(9,14,100,.45) 90%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .05 0 0 0 0 .07 0 0 0 0 .4 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    background-size:auto, 27px 23px, 33px 29px, 240px 240px;
+    background-position:0 0, 0 0, 13px 11px, 0 0;
+    background-attachment:fixed, scroll, scroll, scroll;
+  }
+  a{color:inherit;text-underline-offset:.18em}
+  .skip{position:absolute;left:-999px;top:0;background:var(--rosa);color:var(--blu-scuro);padding:.6rem 1rem;z-index:9}
+  .skip:focus{left:1rem}
+  :focus-visible{outline:3px solid var(--rosa-chiaro);outline-offset:3px;border-radius:6px}
+
+  .wrap{position:relative;max-width:40rem;margin:0 auto;padding:1.5rem 1.25rem 3rem}
+  header.top{display:flex;align-items:center;gap:.75rem;font-weight:800;position:relative;z-index:2}
+  header.top img{height:28px;width:auto;display:block}
+  header.top span{opacity:.75}
+
+  /* baci sparsi, come nel manifesto */
+  .bacio{position:absolute;width:var(--w,110px);transform:rotate(var(--r,0deg));filter:drop-shadow(0 8px 10px rgba(8,12,90,.45));pointer-events:none;z-index:1}
+  .b1{--w:120px;--r:-14deg;top:4.5rem;left:-2.5rem}
+  .b2{--w:95px;--r:12deg;top:13rem;right:-1.5rem}
+  .b3{--w:130px;--r:-8deg;top:31rem;right:-3rem}
+  .b4{--w:80px;--r:18deg;top:27rem;left:-1.8rem}
+
+  /* HERO: le lettere gonfie rosa sono l'elemento memorabile */
+  .hero{position:relative;z-index:2;padding:3.5rem 0 2rem;text-align:center}
+  h1{
+    font:400 clamp(3rem, 12vw, 5.4rem)/.92 var(--puffy);
+    color:var(--rosa);margin:0 0 1.4rem;letter-spacing:-.01em;
+    text-shadow:
+      0 -2px 0 var(--rosa-chiaro),
+      0 2px 0 #f27fca, 0 4px 0 var(--rosa-caldo), 0 6px 0 #d34aa6, 0 8px 0 #b93a92,
+      0 14px 22px rgba(8,12,90,.6);
+    animation:gonfia .9s cubic-bezier(.2,1.6,.4,1) both;
+  }
+  h1 .riga{display:block}
+  h1 .script{font-family:"Pacifico", cursive;font-size:.72em;line-height:1.25;margin-top:.1em}
+  @keyframes gonfia{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
+
+  .quando{
+    font-family:var(--largo);font-stretch:125%;font-weight:900;
+    font-size:clamp(1.35rem, 5.6vw, 2.1rem);line-height:1.05;margin:1.6rem 0 .35rem;
+    text-shadow:2px 2px 0 var(--rosa-caldo), -1px -1px 0 var(--rosa-caldo), 1px -1px 0 var(--rosa-caldo), -1px 1px 0 var(--rosa-caldo);
+  }
+  .intro{max-width:30rem;margin:.9rem auto 0;font-weight:500}
+
+  /* FORM */
+  form{position:relative;z-index:2;margin-top:2.75rem;background:rgba(13,18,99,.72);border:1px solid var(--linea);border-radius:22px;padding:1.75rem 1.4rem;backdrop-filter:blur(2px)}
+  fieldset{border:0;margin:0 0 2.25rem;padding:0}
+  legend{padding:0;margin-bottom:.35rem;display:flex;gap:.7rem;align-items:baseline}
+  legend .n{font:400 1.2rem var(--puffy);color:var(--rosa)}
+  legend .t{font-family:var(--largo);font-stretch:125%;font-weight:900;font-size:1.35rem;line-height:1.2}
+  .aiuto{opacity:.8;margin:0 0 1.1rem}
+
+  .liste{display:grid;gap:.6rem}
+  .lista input{position:absolute;opacity:0;pointer-events:none}
+  .lista label{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1rem 1.1rem;border:2px solid var(--linea);border-radius:999px;
+    cursor:pointer;font-weight:700;transition:border-color .15s, background-color .15s, color .15s;
+  }
+  .lista label::after{content:"";width:1.1rem;height:1.1rem;border-radius:50%;border:2px solid rgba(255,255,255,.7);flex:none}
+  .lista label:hover{border-color:var(--rosa)}
+  .lista input:checked + label{border-color:var(--rosa);background:var(--rosa);color:var(--blu-scuro)}
+  .lista input:checked + label::after{border-color:var(--blu-scuro);background:var(--blu-scuro);box-shadow:inset 0 0 0 3px var(--rosa)}
+  .lista input:focus-visible + label{outline:3px solid var(--rosa-chiaro);outline-offset:3px}
+  .stato-liste{opacity:.8;font-size:.95rem}
+
+  .campi{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .campo{display:flex;flex-direction:column;gap:.35rem}
+  .campo.largo{grid-column:1/-1}
+  .campo label{font-weight:700;font-size:.95rem}
+  .campo input{
+    font:inherit;color:var(--bianco);background:rgba(255,255,255,.08);
+    border:2px solid var(--linea);border-radius:12px;padding:.8rem .9rem;min-height:3rem;width:100%;
+  }
+  .campo input::placeholder{color:rgba(255,255,255,.45)}
+  .campo input:focus{border-color:var(--rosa);outline:none;box-shadow:0 0 0 4px rgba(255,155,217,.25)}
+  .campo input[aria-invalid="true"]{border-color:var(--errore)}
+  .errore-campo{color:var(--errore);font-size:.88rem;font-weight:600}
+  .errore-campo:empty{display:none}
+  .trappola{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+
+  .consenso{display:flex;gap:.8rem;align-items:flex-start;margin:0 0 1rem;cursor:pointer}
+  .consenso input{appearance:none;flex:none;width:1.35rem;height:1.35rem;margin:.15rem 0 0;border:2px solid rgba(255,255,255,.75);border-radius:6px;background:transparent;cursor:pointer;display:grid;place-content:center}
+  .consenso input:checked{background:var(--rosa);border-color:var(--rosa)}
+  .consenso input:checked::after{content:"";width:.35rem;height:.65rem;border:solid var(--blu-scuro);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+  .consenso em{opacity:.75;font-style:normal}
+
+  details.privacy{margin:1.25rem 0 1.5rem;border-top:1px solid var(--linea);padding-top:1rem;font-size:.95rem}
+  details.privacy summary{cursor:pointer;font-weight:700}
+  details.privacy p{margin:.75rem 0 0;opacity:.85}
+
+  .invia{
+    width:100%;padding:1.1rem 1.2rem;border:0;border-radius:999px;cursor:pointer;
+    background:var(--rosa);color:var(--blu-scuro);
+    font-family:var(--largo);font-stretch:125%;font-weight:900;font-size:1.15rem;
+    box-shadow:0 5px 0 var(--rosa-caldo), 0 12px 24px rgba(8,12,90,.5);
+    transition:transform .1s, box-shadow .1s;
+  }
+  .invia:hover{background:#ffabe0}
+  .invia:active{transform:translateY(4px);box-shadow:0 1px 0 var(--rosa-caldo), 0 6px 14px rgba(8,12,90,.5)}
+  .invia[disabled]{opacity:.65;cursor:progress}
+  .errore-generale{margin:1rem 0 0;padding:.9rem 1rem;border-left:4px solid var(--errore);background:rgba(255,224,102,.12);border-radius:0 10px 10px 0}
+  .errore-generale:empty{display:none}
+
+  /* PASS finale */
+  .pass{display:none;position:relative;z-index:2;margin-top:2.5rem}
+  .pass.visibile{display:block;animation:gonfia .6s cubic-bezier(.2,1.5,.4,1) both}
+  .biglietto{
+    position:relative;background:var(--rosa);color:var(--blu-scuro);border-radius:22px;padding:1.75rem 1.5rem;
+    box-shadow:0 6px 0 var(--rosa-caldo), 0 24px 50px rgba(8,12,90,.55)
+  }
+  .biglietto::before,.biglietto::after{content:"";position:absolute;top:62%;width:28px;height:28px;border-radius:50%;background:var(--blu)}
+  .biglietto::before{left:-14px}.biglietto::after{right:-14px}
+  .biglietto .ev{font-weight:800;margin:0}
+  .biglietto .nome{font:400 clamp(2.1rem,9vw,3rem)/1 var(--puffy);margin:.6rem 0 .45rem;word-break:break-word;color:var(--blu)}
+  .biglietto .lista-scelta{margin:0 0 1.4rem;font-weight:600}
+  .biglietto .strappo{border-top:3px dashed rgba(20,28,143,.35);padding-top:1rem;display:flex;justify-content:space-between;gap:1rem;font-family:var(--largo);font-stretch:125%;font-weight:900}
+  .pass .nota{text-align:center;margin-top:1.1rem;font-weight:600}
+
+  footer{position:relative;z-index:2;border-top:1px solid var(--linea);margin-top:3rem;padding-top:1.25rem;font-size:.9rem;opacity:.85}
+
+  @media (max-width:520px){ .campi{grid-template-columns:1fr} .hero{padding-top:2.5rem} .b3,.b4{display:none} .b2{--w:80px;top:3.2rem;right:-1.2rem} form{padding:1.4rem 1.1rem} }
+  @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Vai al contenuto</a>
+<div class="wrap">
+  <svg class="bacio b1" viewBox="0 0 120 64" aria-hidden="true" focusable="false"><path d="M3 32C18 10 38 3 51 13q9 6 18 0C82 3 102 10 117 32 101 53 82 61 60 61S19 53 3 32Z" fill="#ff8fd4"/><path d="M8 32q52 12 104 0" fill="none" stroke="#c9469d" stroke-width="4" stroke-linecap="round"/><path d="M22 22q12-9 26-4M74 18q14-4 25 5" fill="none" stroke="#ffd6f1" stroke-width="3.5" stroke-linecap="round"/><path d="M30 44q30 10 60 0" fill="none" stroke="#e068b6" stroke-width="2" stroke-dasharray="3 5"/></svg>
+  <svg class="bacio b2" viewBox="0 0 120 64" aria-hidden="true" focusable="false"><path d="M3 32C18 10 38 3 51 13q9 6 18 0C82 3 102 10 117 32 101 53 82 61 60 61S19 53 3 32Z" fill="#ff8fd4"/><path d="M8 32q52 12 104 0" fill="none" stroke="#c9469d" stroke-width="4" stroke-linecap="round"/><path d="M22 22q12-9 26-4M74 18q14-4 25 5" fill="none" stroke="#ffd6f1" stroke-width="3.5" stroke-linecap="round"/><path d="M30 44q30 10 60 0" fill="none" stroke="#e068b6" stroke-width="2" stroke-dasharray="3 5"/></svg>
+  <svg class="bacio b3" viewBox="0 0 120 64" aria-hidden="true" focusable="false"><path d="M3 32C18 10 38 3 51 13q9 6 18 0C82 3 102 10 117 32 101 53 82 61 60 61S19 53 3 32Z" fill="#ff8fd4"/><path d="M8 32q52 12 104 0" fill="none" stroke="#c9469d" stroke-width="4" stroke-linecap="round"/><path d="M22 22q12-9 26-4M74 18q14-4 25 5" fill="none" stroke="#ffd6f1" stroke-width="3.5" stroke-linecap="round"/><path d="M30 44q30 10 60 0" fill="none" stroke="#e068b6" stroke-width="2" stroke-dasharray="3 5"/></svg>
+  <svg class="bacio b4" viewBox="0 0 120 64" aria-hidden="true" focusable="false"><path d="M3 32C18 10 38 3 51 13q9 6 18 0C82 3 102 10 117 32 101 53 82 61 60 61S19 53 3 32Z" fill="#ff8fd4"/><path d="M8 32q52 12 104 0" fill="none" stroke="#c9469d" stroke-width="4" stroke-linecap="round"/><path d="M22 22q12-9 26-4M74 18q14-4 25 5" fill="none" stroke="#ffd6f1" stroke-width="3.5" stroke-linecap="round"/><path d="M30 44q30 10 60 0" fill="none" stroke="#e068b6" stroke-width="2" stroke-dasharray="3 5"/></svg>
+  <header class="top">
+    <a href="https://www.pubby.it/" aria-label="Pubby"><img src="https://www.pubby.it/assets/logo-cream.png" alt="Pubby"></a>
+    <span aria-hidden="true">×</span>
+    <strong>Halloween</strong>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <h1><span class="riga">Mettiti</span><span class="riga">in lista</span><span class="riga script">al resto pensiamo noi</span></h1>
+      <p class="quando">Sabato 31 ottobre</p>
+      <p class="intro">La notte di Halloween. Scegli la tua lista, lascia i tuoi dati e ci vediamo all'ingresso.</p>
+    </section>
+
+    <form id="form" novalidate>
+      <fieldset>
+        <legend><span class="n">01</span><span class="t">La tua lista</span></legend>
+        <p class="aiuto">Con chi entri? Scegline una.</p>
+        <div class="liste" id="liste" role="radiogroup" aria-describedby="err-lista">
+          <p class="stato-liste">Carico le liste…</p>
+        </div>
+        <p class="errore-campo" id="err-lista" role="alert"></p>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="n">02</span><span class="t">I tuoi dati</span></legend>
+        <p class="aiuto">Quelli veri: all'ingresso cerchiamo il tuo nome.</p>
+        <div class="campi">
+          <div class="campo">
+            <label for="nome">Nome</label>
+            <input id="nome" name="nome" autocomplete="given-name" required maxlength="60" aria-describedby="err-nome">
+            <span class="errore-campo" id="err-nome"></span>
+          </div>
+          <div class="campo">
+            <label for="cognome">Cognome</label>
+            <input id="cognome" name="cognome" autocomplete="family-name" required maxlength="60" aria-describedby="err-cognome">
+            <span class="errore-campo" id="err-cognome"></span>
+          </div>
+          <div class="campo largo">
+            <label for="telefono">Telefono</label>
+            <input id="telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="+39 333 123 4567" required maxlength="20" aria-describedby="err-telefono">
+            <span class="errore-campo" id="err-telefono"></span>
+          </div>
+          <div class="campo largo">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="nome@esempio.it" required maxlength="120" aria-describedby="err-email">
+            <span class="errore-campo" id="err-email"></span>
+          </div>
+          <div class="trappola" aria-hidden="true">
+            <label for="sito">Lascia vuoto</label>
+            <input id="sito" name="sito" tabindex="-1" autocomplete="off">
+          </div>
+        </div>
+      </fieldset>
+
+      <label class="consenso">
+        <input type="checkbox" id="privacy" name="privacy" aria-describedby="err-privacy">
+        <span>Ho letto come trattate i miei dati (qui sotto) e vi autorizzo a usarli per mettermi in lista.</span>
+      </label>
+      <p class="errore-campo" id="err-privacy"></p>
+      <label class="consenso">
+        <input type="checkbox" id="marketing" name="marketing">
+        <span>Tenetemi aggiornato sui prossimi eventi via email, SMS o WhatsApp. <em>Facoltativo, e puoi dire basta quando vuoi.</em></span>
+      </label>
+
+      <details class="privacy">
+        <summary>Come usiamo i tuoi dati</summary>
+        <p>Li tratta Pubby S.r.l. (Via Gioacchino Rossini 10, Dogana, San Marino). Nome, cognome, telefono ed email servono a metterti nella lista che hai scelto e a riconoscerti all'ingresso: per questo li vedono anche gli organizzatori della serata e chi gestisce la tua lista, e li cancelliamo entro 30 giorni dall'evento.</p>
+        <p>Se spunti anche la seconda casella, li teniamo per avvisarti dei prossimi eventi finché non ci dici di smettere, e comunque non oltre 24 mesi. Senza quella casella non ti scriviamo.</p>
+        <p>Per qualsiasi richiesta: <a href="mailto:p.arzilli@pubby.sm">p.arzilli@pubby.sm</a>. Tutti i dettagli in <a href="https://www.pubby.it/privacy.html">Privacy e cookie</a>.</p>
+      </details>
+
+      <button class="invia" type="submit" id="invia">Mettimi in lista</button>
+      <p class="errore-generale" id="err-generale" role="alert"></p>
+    </form>
+
+    <section class="pass" id="pass" aria-live="polite" tabindex="-1">
+      <div class="biglietto">
+        <p class="ev">Halloween × Pubby</p>
+        <p class="nome" id="pass-nome"></p>
+        <p class="lista-scelta">Sei in lista <strong id="pass-lista"></strong></p>
+        <div class="strappo"><span>Sabato 31 ottobre</span><span>Ingresso</span></div>
+      </div>
+      <p class="nota">Fai uno screenshot, non si sa mai.</p>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Pubby S.r.l.</strong> · COE SM31894 · <a href="https://www.pubby.it/privacy.html">Privacy</a> · <a href="https://www.pubby.it/note-legali.html">Note legali</a>
+  </footer>
+</div>
+
+<script>
+/* ---- Configurazione Supabase (progetto "listaHalloween") ----
+   La chiave publishable è pensata per stare nel browser: la sicurezza è
+   garantita dalle policy RLS (si può solo leggere le liste attive e inserire
+   prenotazioni, non leggerle). */
+const SUPABASE_URL = "https://cyqcxyhncffmjflxtxns.supabase.co";
+const SUPABASE_KEY = "sb_publishable_xDzmip85mfzVEekb7mSfKg_ZACJ5dHQ";
+const headers = { apikey: SUPABASE_KEY, "Content-Type": "application/json" };
+
+const $ = (id) => document.getElementById(id);
+const form = $("form"), listeBox = $("liste");
+let listeCaricate = [];
+
+async function caricaListe(){
+  try{
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/liste?select=slug,nome&order=ordine.asc`, { headers });
+    if(!r.ok) throw new Error(r.status);
+    listeCaricate = await r.json();
+    if(!listeCaricate.length){ listeBox.innerHTML = '<p class="stato-liste">Le liste non sono ancora aperte. Riprova più tardi.</p>'; return; }
+    listeBox.innerHTML = listeCaricate.map((l,i)=>`
+      <div class="lista">
+        <input type="radio" name="lista" id="lista-${i}" value="${l.slug}">
+        <label for="lista-${i}">${escapeHtml(l.nome)}</label>
+      </div>`).join("");
+  }catch(e){
+    listeBox.innerHTML = '<p class="stato-liste">Non riesco a caricare le liste. Controlla la connessione e ricarica la pagina.</p>';
+  }
+}
+
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+function segna(id, msg){
+  const input = $(id), err = $("err-"+id);
+  if(err) err.textContent = msg || "";
+  if(input && input.tagName === "INPUT" && input.type !== "checkbox") input.setAttribute("aria-invalid", msg ? "true" : "false");
+  return !msg;
+}
+
+function valida(d){
+  let ok = true;
+  ok = segna("lista", d.lista ? "" : "Scegli con quale lista entri.") && ok;
+  ok = segna("nome", d.nome ? "" : "Scrivi il tuo nome.") && ok;
+  ok = segna("cognome", d.cognome ? "" : "Scrivi il tuo cognome.") && ok;
+  ok = segna("telefono", /^\+?[0-9 ]{6,20}$/.test(d.telefono) ? "" : "Scrivi un numero di telefono valido, solo cifre e spazi.") && ok;
+  ok = segna("email", /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email) ? "" : "Scrivi un'email valida, tipo nome@esempio.it.") && ok;
+  ok = segna("privacy", d.consenso_privacy ? "" : "Per metterti in lista serve il consenso al trattamento dei dati.") && ok;
+  return ok;
+}
+
+form.addEventListener("submit", async (ev) => {
+  ev.preventDefault();
+  $("err-generale").textContent = "";
+  if($("sito").value) return; // bot
+
+  const scelta = form.querySelector('input[name="lista"]:checked');
+  const d = {
+    lista: scelta ? scelta.value : "",
+    nome: $("nome").value.trim(),
+    cognome: $("cognome").value.trim(),
+    telefono: $("telefono").value.trim().replace(/\s+/g," "),
+    email: $("email").value.trim().toLowerCase(),
+    consenso_privacy: $("privacy").checked,
+    consenso_marketing: $("marketing").checked
+  };
+  if(!valida(d)){
+    const primo = form.querySelector('[aria-invalid="true"]') || (!d.lista && form.querySelector('input[name="lista"]'));
+    if(primo) primo.focus();
+    return;
+  }
+
+  const btn = $("invia");
+  btn.disabled = true; btn.textContent = "Ti metto in lista…";
+  try{
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/prenotazioni`, {
+      method: "POST",
+      headers: { ...headers, Prefer: "return=minimal" },
+      body: JSON.stringify(d)
+    });
+    if(r.status === 409){
+      segna("email", "Questa email è già in lista. Se vuoi cambiare lista scrivi a p.arzilli@pubby.sm.");
+      $("email").focus();
+      return;
+    }
+    if(!r.ok) throw new Error(await r.text());
+
+    const nomeLista = (listeCaricate.find(l => l.slug === d.lista) || {}).nome || d.lista;
+    $("pass-nome").textContent = `${d.nome} ${d.cognome}`;
+    $("pass-lista").textContent = nomeLista;
+    form.hidden = true;
+    const pass = $("pass");
+    pass.classList.add("visibile");
+    pass.focus();
+    pass.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  }catch(e){
+    $("err-generale").textContent = "Non siamo riusciti a salvare i tuoi dati. Controlla la connessione e premi di nuovo Mettimi in lista.";
+    console.error(e);
+  }finally{
+    btn.disabled = false; btn.textContent = "Mettimi in lista";
+  }
+});
+
+caricaListe();
+</script>
+</body>
+</html>
