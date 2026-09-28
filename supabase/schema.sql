@@ -5,12 +5,12 @@ create table public.prenotazioni (
   nome text not null check (char_length(trim(nome)) between 1 and 60),
   cognome text not null check (char_length(trim(cognome)) between 1 and 60),
   telefono text not null check (telefono ~ '^\+?[0-9 ]{6,20}$'),
-  email text not null check (email ~* '^[^@\s]+@[^@\s]+\.[^@\s]+$' and char_length(email) <= 120),
   consenso_privacy boolean not null check (consenso_privacy = true),
   consenso_marketing boolean not null default false
 );
 
-create unique index prenotazioni_email_unique on public.prenotazioni (lower(email));
+-- un numero si può mettere in lista una volta sola (spazi e "+" non contano)
+create unique index prenotazioni_telefono_unique on public.prenotazioni (regexp_replace(telefono, '[^0-9]', '', 'g'));
 
 alter table public.prenotazioni enable row level security;
 
