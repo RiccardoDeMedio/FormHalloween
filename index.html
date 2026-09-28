@@ -191,15 +191,46 @@
   .biglietto .strappo{border-top:3px dashed rgba(20,28,143,.35);padding-top:1rem;display:flex;justify-content:space-between;gap:1rem;font-family:var(--largo);font-stretch:125%;font-weight:900}
   .pass .nota{text-align:center;margin-top:1.1rem;font-weight:600}
 
-  footer{position:relative;z-index:2;border-top:1px solid var(--linea);margin-top:3rem;padding-top:1.25rem;font-size:.9rem;opacity:.85}
+  footer{position:relative;z-index:2;border-top:1px solid var(--linea);margin-top:3rem;padding-top:1.25rem;font-size:.9rem}
+  footer .testo{opacity:.85}
 
-  @media (max-width:520px){ .campi{grid-template-columns:1fr} .hero{padding-top:2.5rem} .b3,.b4{display:none} .b1{--w:90px;top:8.5rem;left:-2.2rem} .b2{--w:80px;top:13rem;right:-1.4rem} form{padding:1.4rem 1.1rem} }
+  /* ---- Halloween, a piccole dosi e nei colori del brand ---- */
+  .ragnatela{position:absolute;top:0;width:clamp(84px,17vw,150px);height:auto;z-index:1;pointer-events:none;opacity:.45}
+  .ragnatela.sx{left:0}
+  .ragnatela.dx{right:0;transform:scaleX(-1)}
+
+  /* il ragno scende col suo filo, poi oscilla; se lo tocchi risale e torna giù */
+  .ragno{position:absolute;top:0;right:max(14px, calc(50% - 23rem));z-index:3;width:30px;height:var(--giu,170px);pointer-events:none;
+    animation:cala 1.8s cubic-bezier(.25,1.25,.5,1) 2.2s both}
+  .ragno.fermo{animation:none}
+  .ragno.fermo.su{animation:risale 2.2s cubic-bezier(.5,0,.4,1)}
+  .ragno-pendolo{height:100%;display:flex;flex-direction:column;align-items:center;transform-origin:50% 0;animation:pendola 5s ease-in-out infinite}
+  .filo{flex:1;width:1px;background:linear-gradient(rgba(255,255,255,.15), rgba(255,255,255,.7))}
+  .ragno svg{flex:none;width:30px;height:auto;margin-top:-2px;pointer-events:auto;cursor:pointer;filter:drop-shadow(0 0 2px rgba(255,255,255,.35))}
+  @keyframes cala{from{transform:translateY(-100%)}to{transform:none}}
+  @keyframes risale{0%{transform:none}25%,55%{transform:translateY(-100%)}100%{transform:none}}
+  @keyframes pendola{0%,100%{transform:rotate(3deg)}50%{transform:rotate(-3deg)}}
+
+  /* zucca appoggiata sulla linea del footer */
+  .zucca{position:absolute;right:4px;top:1px;width:46px;transform:translateY(-100%);pointer-events:none}
+  .zucca svg{display:block;width:100%;height:auto;transform-origin:50% 100%;animation:ondeggia 3.5s ease-in-out infinite;filter:drop-shadow(0 4px 6px rgba(8,12,90,.45))}
+  @keyframes ondeggia{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+
+  @media (max-width:520px){ .campi{grid-template-columns:1fr} .hero{padding-top:2.5rem} .b3,.b4{display:none} .b1{--w:90px;top:8.5rem;left:-2.2rem} .b2{--w:80px;top:13rem;right:-1.4rem} .ragno{--giu:118px;right:10px} .ragno svg{width:26px} form{padding:1.4rem 1.1rem} }
   @media (prefers-reduced-motion:reduce){ *,*::after{animation:none!important;transition:none!important} .js .rivela{opacity:1;transform:none} }
 </style>
 <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
 <a class="skip" href="#main">Vai al contenuto</a>
+<svg class="ragnatela sx" viewBox="0 0 150 150" aria-hidden="true" focusable="false"><path d="M0 0L142.7 46.4M0 0L121.4 88.2M0 0L88.2 121.4M0 0L46.4 142.7M26 0Q22.1 3.5 24.7 8Q19.9 10.2 21 15.3Q15.8 15.8 15.3 21Q10.2 19.9 8 24.7Q3.5 22.1 0 26M52 0Q44.2 7 49.5 16.1Q39.8 20.3 42.1 30.6Q31.6 31.6 30.6 42.1Q20.3 39.8 16.1 49.5Q7 44.2 0 52M82 0Q69.7 11 78 25.3Q62.8 32 66.3 48.2Q49.9 49.9 48.2 66.3Q32 62.8 25.3 78Q11 69.7 0 82M114 0Q96.8 15.3 108.4 35.2Q87.4 44.5 92.2 67Q69.3 69.3 67 92.2Q44.5 87.4 35.2 108.4Q15.3 96.8 0 114M146 0Q124 19.6 138.9 45.1Q111.9 57 118.1 85.8Q88.8 88.8 85.8 118.1Q57 111.9 45.1 138.9Q19.6 124 0 146" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round"/></svg>
+<svg class="ragnatela dx" viewBox="0 0 150 150" aria-hidden="true" focusable="false"><path d="M0 0L142.7 46.4M0 0L121.4 88.2M0 0L88.2 121.4M0 0L46.4 142.7M26 0Q22.1 3.5 24.7 8Q19.9 10.2 21 15.3Q15.8 15.8 15.3 21Q10.2 19.9 8 24.7Q3.5 22.1 0 26M52 0Q44.2 7 49.5 16.1Q39.8 20.3 42.1 30.6Q31.6 31.6 30.6 42.1Q20.3 39.8 16.1 49.5Q7 44.2 0 52M82 0Q69.7 11 78 25.3Q62.8 32 66.3 48.2Q49.9 49.9 48.2 66.3Q32 62.8 25.3 78Q11 69.7 0 82M114 0Q96.8 15.3 108.4 35.2Q87.4 44.5 92.2 67Q69.3 69.3 67 92.2Q44.5 87.4 35.2 108.4Q15.3 96.8 0 114M146 0Q124 19.6 138.9 45.1Q111.9 57 118.1 85.8Q88.8 88.8 85.8 118.1Q57 111.9 45.1 138.9Q19.6 124 0 146" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round"/></svg>
+<div class="ragno" id="ragno" aria-hidden="true">
+  <div class="ragno-pendolo">
+    <span class="filo"></span>
+    <svg viewBox="0 0 40 36"><g fill="none" stroke="#0d1263" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 15 6 9 2 13M13 18 4 16 0 21M13 22 4 24 1 30M14 25 8 30 6 35M26 15 34 9 38 13M27 18 36 16 40 21M27 22 36 24 39 30M26 25 32 30 34 35"/></g><ellipse cx="20" cy="21" rx="7" ry="8" fill="#0d1263"/><circle cx="20" cy="11" r="4.6" fill="#0d1263"/><ellipse cx="17.6" cy="18" rx="1.6" ry="3" fill="#ff9bd9" opacity=".55"/><circle cx="18.3" cy="10.6" r="1.3" fill="#ff9bd9"/><circle cx="21.7" cy="10.6" r="1.3" fill="#ff9bd9"/></svg>
+  </div>
+</div>
 <div class="wrap">
   <svg class="bacio b1" viewBox="0 0 120 64" aria-hidden="true" focusable="false"><path d="M3 32C18 10 38 3 51 13q9 6 18 0C82 3 102 10 117 32 101 53 82 61 60 61S19 53 3 32Z" fill="#ff8fd4"/><path d="M8 32q52 12 104 0" fill="none" stroke="#c9469d" stroke-width="4" stroke-linecap="round"/><path d="M22 22q12-9 26-4M74 18q14-4 25 5" fill="none" stroke="#ffd6f1" stroke-width="3.5" stroke-linecap="round"/><path d="M30 44q30 10 60 0" fill="none" stroke="#e068b6" stroke-width="2" stroke-dasharray="3 5"/></svg>
   <svg class="bacio b2" viewBox="0 0 120 64" aria-hidden="true" focusable="false"><path d="M3 32C18 10 38 3 51 13q9 6 18 0C82 3 102 10 117 32 101 53 82 61 60 61S19 53 3 32Z" fill="#ff8fd4"/><path d="M8 32q52 12 104 0" fill="none" stroke="#c9469d" stroke-width="4" stroke-linecap="round"/><path d="M22 22q12-9 26-4M74 18q14-4 25 5" fill="none" stroke="#ffd6f1" stroke-width="3.5" stroke-linecap="round"/><path d="M30 44q30 10 60 0" fill="none" stroke="#e068b6" stroke-width="2" stroke-dasharray="3 5"/></svg>
@@ -280,7 +311,8 @@
   </main>
 
   <footer>
-    <strong>Pubby S.r.l.</strong> · COE SM31894 · <a href="https://www.pubby.it/privacy.html">Privacy</a> · <a href="https://www.pubby.it/note-legali.html">Note legali</a>
+    <span class="zucca" aria-hidden="true"><svg viewBox="0 0 64 58"><path d="M31 21c0-6 2-11 6-13l2.5 3c-3 2-4.5 5.5-4.5 10z" fill="#141c8f"/><path d="M37 11c5-3.5 10.5-2.5 12.5 1.5" fill="none" stroke="#141c8f" stroke-width="2" stroke-linecap="round"/><ellipse cx="19" cy="38" rx="14" ry="17" fill="#ee5fbf"/><ellipse cx="45" cy="38" rx="14" ry="17" fill="#ee5fbf"/><ellipse cx="32" cy="38" rx="15" ry="18.5" fill="#ff9bd9"/><ellipse cx="12" cy="32" rx="2.4" ry="5.5" fill="#ffd3f0" opacity=".7"/><path d="M23 34l3.2-5.5 3.2 5.5zM34.6 34l3.2-5.5 3.2 5.5z" fill="#141c8f"/><path d="M22 41q10 9 20 0l-3.3 1.2-1.7 2-2-1.8-2.5 2-2.5-2-2 1.8-1.7-2z" fill="#141c8f"/></svg></span>
+    <span class="testo"><strong>Pubby S.r.l.</strong> · COE SM31894 · <a href="https://www.pubby.it/privacy.html">Privacy</a> · <a href="https://www.pubby.it/note-legali.html">Note legali</a></span>
   </footer>
 </div>
 
@@ -345,6 +377,20 @@ function dividiLettere(el, testo, base = 0){
     if(v.isIntersecting){ v.target.classList.add("in"); io.unobserve(v.target); }
   }), { rootMargin: "0px 0px -8% 0px" });
   blocchi.forEach(b => io.observe(b));
+})();
+
+// il ragno: finita la discesa resta appeso; se lo tocchi scappa su e torna
+(function ragno(){
+  const r = $("ragno");
+  r.addEventListener("animationend", (e) => {
+    if(e.target !== r) return;
+    if(r.classList.contains("su")) r.classList.remove("su");
+    else r.classList.add("fermo");
+  });
+  r.querySelector("svg").addEventListener("click", () => {
+    if(!r.classList.contains("fermo") || r.classList.contains("su")) return;
+    r.classList.add("su");
+  });
 })();
 
 function segna(id, msg){
